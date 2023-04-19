@@ -1,8 +1,9 @@
 use encrypt_decrypt::EncryptDecrypt;
+use k256_kit::crypto::Crypto;
 
 pub struct Data;
 
-impl EncryptDecrypt for Data {}
+impl Crypto for Data {}
 
 #[test]
 fn test() {
@@ -15,7 +16,7 @@ fn test() {
         134, 245, 114, 45, 63, 82, 19, 251, 210, 57, 79, 54,
     ];
     let data = "123";
-    let se = Data::encrypt_data(pubkey.as_slice(), data.as_bytes()).unwrap();
-    let d = Data::decrypt_data(seckey.as_slice(), se.as_slice()).unwrap();
+    let se = Data::encrypt(pubkey.as_slice(), data.as_bytes()).unwrap();
+    let d = Data::decrypt(seckey.as_slice(), se.as_slice()).unwrap();
     assert_eq!(data, String::from_utf8(d).unwrap());
 }
